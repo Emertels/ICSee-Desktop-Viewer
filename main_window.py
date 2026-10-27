@@ -811,7 +811,7 @@ class RebootDialog(QDialog):
     """Custom dark frameless modal dialog for camera reboot confirmation."""
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Reiniciar Câmera")
+        self.setWindowTitle(tr("reboot_dlg_title", "🔄 Reiniciar Câmera"))
         self.setFixedSize(380, 160)
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
         self.setStyleSheet("""
@@ -839,7 +839,7 @@ class RebootDialog(QDialog):
         # Custom dark header bar with title and close '✕' button
         hdr = QHBoxLayout()
         hdr.setContentsMargins(0, 0, 0, 2)
-        lbl_hdr = QLabel("🔄 Reiniciar Câmera")
+        lbl_hdr = QLabel(tr("reboot_dlg_title", "🔄 Reiniciar Câmera"))
         lbl_hdr.setStyleSheet("font-size: 12px; font-weight: bold; color: #94a3b8;")
         btn_close = QPushButton("✕")
         btn_close.setFixedSize(24, 24)
@@ -873,11 +873,11 @@ class RebootDialog(QDialog):
 
         text_box = QVBoxLayout()
         text_box.setSpacing(4)
-        lbl_title = QLabel("Deseja reiniciar a câmera agora?")
+        lbl_title = QLabel(tr("reboot_dlg_msg", "Deseja reiniciar a câmera agora?"))
         lbl_title.setStyleSheet("font-size: 13px; font-weight: bold; color: #f8fafc;")
         text_box.addWidget(lbl_title)
 
-        lbl_sub = QLabel("A reconexão levará cerca de 30 a 50 segundos.")
+        lbl_sub = QLabel(tr("reboot_dlg_sub", "A reconexão levará cerca de 30 a 50 segundos."))
         lbl_sub.setStyleSheet("font-size: 11px; color: #94a3b8;")
         text_box.addWidget(lbl_sub)
         top_box.addLayout(text_box)
@@ -889,7 +889,7 @@ class RebootDialog(QDialog):
         btn_box.setSpacing(10)
         btn_box.addStretch()
 
-        btn_cancel = QPushButton("Cancelar")
+        btn_cancel = QPushButton(tr("btn_cancel", "Cancelar"))
         btn_cancel.setStyleSheet("""
             QPushButton {
                 background-color: #334155;
@@ -901,7 +901,7 @@ class RebootDialog(QDialog):
         btn_cancel.clicked.connect(self.reject)
         btn_box.addWidget(btn_cancel)
 
-        btn_confirm = QPushButton("Sim, Reiniciar")
+        btn_confirm = QPushButton(tr("reboot_dlg_confirm", "Sim, Reiniciar"))
         btn_confirm.setStyleSheet("""
             QPushButton {
                 background-color: #dc2626;
@@ -935,7 +935,7 @@ class ShutdownDialog(QDialog):
     """Custom dark frameless modal dialog for scheduled shutdown with real-time countdown."""
     def __init__(self, parent=None, countdown_sec=60):
         super().__init__(parent)
-        self.setWindowTitle("Desligamento Programado do PC")
+        self.setWindowTitle(tr("shut_dlg_title", "⚠️ Desligamento do Computador"))
         self.setFixedSize(400, 175)
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
         self.countdown = countdown_sec
@@ -967,7 +967,7 @@ class ShutdownDialog(QDialog):
         # Custom dark header bar with title and close '✕' button
         hdr = QHBoxLayout()
         hdr.setContentsMargins(0, 0, 0, 2)
-        lbl_hdr = QLabel("⚠️ Desligamento do Computador")
+        lbl_hdr = QLabel(tr("shut_dlg_title", "⚠️ Desligamento do Computador"))
         lbl_hdr.setStyleSheet("font-size: 12px; font-weight: bold; color: #94a3b8;")
         btn_close = QPushButton("✕")
         btn_close.setFixedSize(24, 24)
@@ -1001,11 +1001,11 @@ class ShutdownDialog(QDialog):
 
         text_box = QVBoxLayout()
         text_box.setSpacing(4)
-        lbl_title = QLabel("Gravação concluída com sucesso!")
+        lbl_title = QLabel(tr("shut_dlg_msg", "Gravação concluída com sucesso!"))
         lbl_title.setStyleSheet("font-size: 13px; font-weight: bold; color: #f8fafc;")
         text_box.addWidget(lbl_title)
 
-        self.lbl_countdown = QLabel(f"O computador será desligado em {self.countdown} segundos...")
+        self.lbl_countdown = QLabel(tr("shut_dlg_countdown", "O computador será desligado em {sec} segundos...").replace("{sec}", str(self.countdown)))
         self.lbl_countdown.setStyleSheet("font-size: 11px; color: #fbbf24; font-weight: bold;")
         text_box.addWidget(self.lbl_countdown)
         top_box.addLayout(text_box)
@@ -1017,7 +1017,7 @@ class ShutdownDialog(QDialog):
         btn_box.setSpacing(10)
         btn_box.addStretch()
 
-        btn_cancel = QPushButton("Cancelar Desligamento")
+        btn_cancel = QPushButton(tr("shut_btn_cancel", "Cancelar Desligamento"))
         btn_cancel.setStyleSheet("""
             QPushButton {
                 background-color: #334155;
@@ -1029,7 +1029,7 @@ class ShutdownDialog(QDialog):
         btn_cancel.clicked.connect(self._on_cancel)
         btn_box.addWidget(btn_cancel)
 
-        btn_now = QPushButton("Desligar Agora")
+        btn_now = QPushButton(tr("shut_btn_now", "Desligar Agora"))
         btn_now.setStyleSheet("""
             QPushButton {
                 background-color: #dc2626;
@@ -1066,7 +1066,7 @@ class ShutdownDialog(QDialog):
     def _tick(self):
         self.countdown -= 1
         if self.countdown > 0:
-            self.lbl_countdown.setText(f"O computador será desligado em {self.countdown} segundos...")
+            self.lbl_countdown.setText(tr("shut_dlg_countdown", "O computador será desligado em {sec} segundos...").replace("{sec}", str(self.countdown)))
         else:
             self.timer.stop()
             self.accept()
@@ -1169,12 +1169,10 @@ class MainWindow(QMainWindow):
             self.btn_layout_side.setText("⚏" if is_compact else tr("btn_side"))
 
         if hasattr(self, "lbl_keys"):
-            if w < 780:
-                self.lbl_keys.setText("[Setas] PTZ | [2 Cliques/L2/R2] Zoom | [Espaço] Pausa | [S] Foto | [R] REC | [F11] Full")
-            elif w < 920:
-                self.lbl_keys.setText("Atalhos: [Setas] PTZ | [2 Cliques / L2 / R2] Ampliar Lente | [Espaço] Pausar | [S/△] Foto | [R] REC")
+            if w < 920:
+                self.lbl_keys.setText(tr("status_shortcuts_compact", "[Setas] PTZ | [2 Cliques/L2/R2] Zoom | [Espaço] Pausa | [S] Foto | [R] REC | [F11] Full"))
             else:
-                self.lbl_keys.setText("Atalhos: [↑ ↓ ← →] ou Analógico | [2 Cliques / L2 / R2] Ampliar Lente | [Espaço / ○] Pausar | [S / △] Foto | [R] Gravar | [F11] Full")
+                self.lbl_keys.setText(tr("status_shortcuts", "Atalhos: [↑ ↓ ← →] ou Analógico | [2 Cliques / L2 / R2] Ampliar Lente | [Espaço / ○] Pausar | [S / △] Foto | [R] Gravar | [F11] Full"))
 
         if not self.isFullScreen() and not self.isMaximized():
             self.config["window_width"] = w
@@ -1358,29 +1356,33 @@ class MainWindow(QMainWindow):
         row1 = QHBoxLayout()
         row1.setSpacing(8)
 
-        lbl_conn = QLabel("🌐 Conexão:")
-        lbl_conn.setStyleSheet("font-weight: bold; color: #38bdf8;")
-        row1.addWidget(lbl_conn)
+        self.lbl_conn = QLabel(tr("sett_conn", "🌐 Conexão:"))
+        self.lbl_conn.setStyleSheet("font-weight: bold; color: #38bdf8;")
+        row1.addWidget(self.lbl_conn)
 
-        row1.addWidget(QLabel("IP:"))
+        self.lbl_ip = QLabel(tr("sett_ip", "IP:"))
+        row1.addWidget(self.lbl_ip)
         self.edit_ip = QLineEdit(self.config.get("ip", "192.168.1.10"))
         self.edit_ip.setFixedWidth(115)
         self.edit_ip.setToolTip("Endereço IP local da câmera na sua rede")
         row1.addWidget(self.edit_ip)
 
-        row1.addWidget(QLabel("Porta:"))
+        self.lbl_port = QLabel(tr("sett_port", "Porta:"))
+        row1.addWidget(self.lbl_port)
         self.edit_port = QLineEdit(str(self.config.get("port", 8899)))
         self.edit_port.setFixedWidth(50)
         self.edit_port.setToolTip("Porta ONVIF padrão (8899)")
         row1.addWidget(self.edit_port)
 
-        row1.addWidget(QLabel("Usuário:"))
+        self.lbl_user = QLabel(tr("sett_user", "Usuário:"))
+        row1.addWidget(self.lbl_user)
         self.edit_user = QLineEdit(self.config.get("user", "admin"))
         self.edit_user.setFixedWidth(75)
         self.edit_user.setToolTip("Nome do usuário cadastrado na câmera (padrão: admin)")
         row1.addWidget(self.edit_user)
 
-        row1.addWidget(QLabel("Senha:"))
+        self.lbl_pass = QLabel(tr("sett_pass", "Senha:"))
+        row1.addWidget(self.lbl_pass)
         pw_box = QHBoxLayout()
         pw_box.setSpacing(2)
         self.edit_pass = QLineEdit(self.config.get("password", ""))
@@ -1405,9 +1407,9 @@ class MainWindow(QMainWindow):
         row2 = QHBoxLayout()
         row2.setSpacing(14)
 
-        lbl_pref = QLabel("⚙️ Opções:")
-        lbl_pref.setStyleSheet("font-weight: bold; color: #38bdf8;")
-        row2.addWidget(lbl_pref)
+        self.lbl_pref = QLabel(tr("sett_options", "⚙️ Opções:"))
+        self.lbl_pref.setStyleSheet("font-weight: bold; color: #38bdf8;")
+        row2.addWidget(self.lbl_pref)
 
         self.chk_invert_x = QCheckBox("Inverter Horizontal (PTZ)")
         self.chk_invert_x.setChecked(self.config.get("invert_x", True))
@@ -1469,16 +1471,16 @@ class MainWindow(QMainWindow):
 
         # Header with close button
         tips_header = QHBoxLayout()
-        lbl_tips_head = QLabel("🎮 Guia Rápido de Controles e Atalhos")
-        lbl_tips_head.setStyleSheet("font-size: 14px; font-weight: bold; color: #38bdf8;")
-        tips_header.addWidget(lbl_tips_head)
+        self.lbl_tips_head = QLabel(tr("tips_title", "🎮 Guia Rápido de Controles e Atalhos"))
+        self.lbl_tips_head.setStyleSheet("font-size: 14px; font-weight: bold; color: #38bdf8;")
+        tips_header.addWidget(self.lbl_tips_head)
         tips_header.addStretch()
 
-        btn_close_tips = QPushButton("✕ Fechar")
-        btn_close_tips.setObjectName("compactBtn")
-        btn_close_tips.setToolTip("Ocultar painel de dicas")
-        btn_close_tips.clicked.connect(self.toggle_tips_panel)
-        tips_header.addWidget(btn_close_tips)
+        self.btn_close_tips = QPushButton(tr("tips_close", "✕ Fechar"))
+        self.btn_close_tips.setObjectName("compactBtn")
+        self.btn_close_tips.setToolTip("Ocultar painel de dicas")
+        self.btn_close_tips.clicked.connect(self.toggle_tips_panel)
+        tips_header.addWidget(self.btn_close_tips)
         tips_main_layout.addLayout(tips_header)
 
         # 2 Column Cards: Gamepad and Keyboard
@@ -1491,17 +1493,23 @@ class MainWindow(QMainWindow):
         gp_box = QVBoxLayout(card_gp)
         gp_box.setContentsMargins(10, 8, 10, 8)
         gp_box.setSpacing(4)
-        lbl_gp_t = QLabel("🎮 Controles DualSense (PS5/PS4) & Xbox")
-        lbl_gp_t.setStyleSheet("font-weight: bold; color: #a78bfa; font-size: 12px;")
-        gp_box.addWidget(lbl_gp_t)
-        gp_box.addWidget(QLabel("🕹️ <b>Analógico / D-Pad:</b> Girar câmera (sensibilidade analógica)"))
-        gp_box.addWidget(QLabel("⏸️ <b>Círculo (○) / B:</b> Pausar / Retomar Câmera"))
-        gp_box.addWidget(QLabel("🔍 <b>Gatilho L2 / LT:</b> Ampliar / Restaurar Câmera Superior/Esquerda"))
-        gp_box.addWidget(QLabel("🔍 <b>Gatilho R2 / RT:</b> Ampliar / Restaurar Câmera Inferior/Direita"))
-        gp_box.addWidget(QLabel("📸 <b>Triângulo (△) / Y:</b> Foto instantânea (pasta Imagens)"))
-        gp_box.addWidget(QLabel("📐 <b>Quadrado (□) / X:</b> Alternar Normal ↔ Lado a Lado"))
-        gp_box.addWidget(QLabel("⚡ <b>Gatilho L1 / LB:</b> Ativar modo SD Fluido (640x720)"))
-        gp_box.addWidget(QLabel("🌟 <b>Gatilho R1 / RB:</b> Ativar modo HD Ultra (2304x2592)"))
+        self.lbl_gp_t = QLabel(tr("tips_gamepad_title", "🎮 Controles DualSense (PS5/PS4) & Xbox"))
+        self.lbl_gp_t.setStyleSheet("font-weight: bold; color: #a78bfa; font-size: 12px;")
+        gp_box.addWidget(self.lbl_gp_t)
+
+        self.tips_gp_labels = [
+            (QLabel(), "tips_gp_stick", "🕹️ <b>Analógico / D-Pad:</b> Girar câmera (sensibilidade analógica)"),
+            (QLabel(), "tips_gp_pause", "⏸️ <b>Círculo (○) / B:</b> Pausar / Retomar Câmera"),
+            (QLabel(), "tips_gp_l2", "🔍 <b>Gatilho L2 / LT:</b> Ampliar / Restaurar Câmera Superior/Esquerda"),
+            (QLabel(), "tips_gp_r2", "🔍 <b>Gatilho R2 / RT:</b> Ampliar / Restaurar Câmera Inferior/Direita"),
+            (QLabel(), "tips_gp_photo", "📸 <b>Triângulo (△) / Y:</b> Foto instantânea (pasta Imagens)"),
+            (QLabel(), "tips_gp_mode", "📐 <b>Quadrado (□) / X:</b> Alternar Normal ↔ Lado a Lado"),
+            (QLabel(), "tips_gp_l1", "⚡ <b>Gatilho L1 / LB:</b> Ativar modo SD Fluido (640x720)"),
+            (QLabel(), "tips_gp_r1", "🌟 <b>Gatilho R1 / RB:</b> Ativar modo HD Ultra (2304x2592)"),
+        ]
+        for lbl, key, default in self.tips_gp_labels:
+            lbl.setText(tr(key, default))
+            gp_box.addWidget(lbl)
         cards_layout.addWidget(card_gp, stretch=1)
 
         # Card 2: Keyboard & Mouse
@@ -1510,16 +1518,22 @@ class MainWindow(QMainWindow):
         kb_box = QVBoxLayout(card_kb)
         kb_box.setContentsMargins(10, 8, 10, 8)
         kb_box.setSpacing(4)
-        lbl_kb_t = QLabel("⌨️ Teclado & Mouse")
-        lbl_kb_t.setStyleSheet("font-weight: bold; color: #38bdf8; font-size: 12px;")
-        kb_box.addWidget(lbl_kb_t)
-        kb_box.addWidget(QLabel("🖱️ <b>Dois cliques no vídeo:</b> Ampliar câmera escolhida (2 cliques p/ voltar)"))
-        kb_box.addWidget(QLabel("⬆️⬇️⬅️➡️ <b>Setas do Teclado:</b> Girar câmera PTZ"))
-        kb_box.addWidget(QLabel("⏸️ <b>Barra de Espaço:</b> Pausar / Retomar Câmera"))
-        kb_box.addWidget(QLabel("📸 <b>Tecla S:</b> Foto instantânea em 1 clique"))
-        kb_box.addWidget(QLabel("🎥 <b>Tecla R:</b> Iniciar / Parar gravação de vídeo"))
-        kb_box.addWidget(QLabel("📌 <b>Tecla T:</b> Fixar janela sempre no topo"))
-        kb_box.addWidget(QLabel("🖥️ <b>Tecla F11:</b> Alternar modo Tela Cheia"))
+        self.lbl_kb_t = QLabel(tr("tips_kb_title", "⌨️ Teclado & Mouse"))
+        self.lbl_kb_t.setStyleSheet("font-weight: bold; color: #38bdf8; font-size: 12px;")
+        kb_box.addWidget(self.lbl_kb_t)
+
+        self.tips_kb_labels = [
+            (QLabel(), "tips_kb_click", "🖱️ <b>Dois cliques no vídeo:</b> Ampliar câmera escolhida (2 cliques p/ voltar)"),
+            (QLabel(), "tips_kb_arrows", "⬆️⬇️⬅️➡️ <b>Setas do Teclado:</b> Girar câmera PTZ"),
+            (QLabel(), "tips_kb_space", "⏸️ <b>Barra de Espaço:</b> Pausar / Retomar Câmera"),
+            (QLabel(), "tips_kb_s", "📸 <b>Tecla S:</b> Foto instantânea em 1 clique"),
+            (QLabel(), "tips_kb_r", "🎥 <b>Tecla R:</b> Iniciar / Parar gravação de vídeo"),
+            (QLabel(), "tips_kb_t", "📌 <b>Tecla T:</b> Fixar janela sempre no topo"),
+            (QLabel(), "tips_kb_f11", "🖥️ <b>Tecla F11:</b> Alternar modo Tela Cheia"),
+        ]
+        for lbl, key, default in self.tips_kb_labels:
+            lbl.setText(tr(key, default))
+            kb_box.addWidget(lbl)
         cards_layout.addWidget(card_kb, stretch=1)
 
         tips_main_layout.addLayout(cards_layout)
@@ -1543,14 +1557,14 @@ class MainWindow(QMainWindow):
         ptz_layout.setContentsMargins(8, 8, 8, 8)
         ptz_layout.setSpacing(5)
 
-        lbl_ptz_title = QLabel("🎮 Controle de Giro (PTZ)")
-        lbl_ptz_title.setObjectName("sectionTitle")
-        ptz_layout.addWidget(lbl_ptz_title)
+        self.lbl_ptz_title = QLabel(tr("ptz_title", "🎮 Controle de Giro (PTZ)"))
+        self.lbl_ptz_title.setObjectName("sectionTitle")
+        ptz_layout.addWidget(self.lbl_ptz_title)
 
-        lbl_hint = QLabel("Setas do teclado, botões ou controle!")
-        lbl_hint.setWordWrap(True)
-        lbl_hint.setObjectName("hintText")
-        ptz_layout.addWidget(lbl_hint)
+        self.lbl_hint = QLabel(tr("ptz_hint", "Setas do teclado, botões ou controle!"))
+        self.lbl_hint.setWordWrap(True)
+        self.lbl_hint.setObjectName("hintText")
+        ptz_layout.addWidget(self.lbl_hint)
 
         # D-Pad Grid Layout for PTZ Buttons
         dpad_container = QWidget()
@@ -1606,9 +1620,9 @@ class MainWindow(QMainWindow):
         ptz_layout.addWidget(dpad_container, alignment=Qt.AlignmentFlag.AlignCenter)
 
         # Speed slider
-        lbl_vel = QLabel("Velocidade do Giro:")
-        lbl_vel.setToolTip("Ajuste a velocidade de rotação dos motores da câmera")
-        ptz_layout.addWidget(lbl_vel)
+        self.lbl_vel = QLabel(tr("speed_label", "Velocidade do Giro:"))
+        self.lbl_vel.setToolTip("Ajuste a velocidade de rotação dos motores da câmera")
+        ptz_layout.addWidget(self.lbl_vel)
 
         self.slider_speed = QSlider(Qt.Orientation.Horizontal)
         self.slider_speed.setRange(1, 10)
@@ -1618,36 +1632,36 @@ class MainWindow(QMainWindow):
         ptz_layout.addWidget(self.slider_speed)
 
         speed_labels = QHBoxLayout()
-        lbl_slow = QLabel("Lento 🐢")
-        lbl_slow.setStyleSheet("font-size: 11px; color: #64748b;")
-        lbl_fast = QLabel("Rápido 🐇")
-        lbl_fast.setStyleSheet("font-size: 11px; color: #64748b;")
-        speed_labels.addWidget(lbl_slow)
+        self.lbl_slow = QLabel(tr("speed_slow", "Lento 🐢"))
+        self.lbl_slow.setStyleSheet("font-size: 11px; color: #64748b;")
+        self.lbl_fast = QLabel(tr("speed_fast", "Rápido 🐇"))
+        self.lbl_fast.setStyleSheet("font-size: 11px; color: #64748b;")
+        speed_labels.addWidget(self.lbl_slow)
         speed_labels.addStretch()
-        speed_labels.addWidget(lbl_fast)
+        speed_labels.addWidget(self.lbl_fast)
         ptz_layout.addLayout(speed_labels)
 
         # Quick Step Buttons
         ptz_layout.addSpacing(4)
-        lbl_step = QLabel("Dar um toque (Giro rápido):")
-        lbl_step.setObjectName("subTitle")
-        lbl_step.setToolTip("Toque único para girar um passo curto calibrado")
-        ptz_layout.addWidget(lbl_step)
+        self.lbl_step = QLabel(tr("step_title", "Dar um toque (Giro rápido):"))
+        self.lbl_step.setObjectName("subTitle")
+        self.lbl_step.setToolTip("Toque único para girar um passo curto calibrado")
+        ptz_layout.addWidget(self.lbl_step)
 
         step_box = QHBoxLayout()
         step_box.setSpacing(4)
-        btn_step_l = QPushButton("↶ Esquerda")
-        btn_step_l.setObjectName("stepBtn")
-        btn_step_l.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        btn_step_l.setToolTip("Giro rápido de 0.35s para a esquerda")
-        btn_step_l.clicked.connect(lambda: self.cam_mgr.ptz_step("left", self.get_speed(), 0.35))
-        btn_step_r = QPushButton("Direita ↷")
-        btn_step_r.setObjectName("stepBtn")
-        btn_step_r.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        btn_step_r.setToolTip("Giro rápido de 0.35s para a direita")
-        btn_step_r.clicked.connect(lambda: self.cam_mgr.ptz_step("right", self.get_speed(), 0.35))
-        step_box.addWidget(btn_step_l, 1)
-        step_box.addWidget(btn_step_r, 1)
+        self.btn_step_l = QPushButton(tr("btn_step_left", "↶ Esquerda"))
+        self.btn_step_l.setObjectName("stepBtn")
+        self.btn_step_l.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.btn_step_l.setToolTip("Giro rápido de 0.35s para a esquerda")
+        self.btn_step_l.clicked.connect(lambda: self.cam_mgr.ptz_step("left", self.get_speed(), 0.35))
+        self.btn_step_r = QPushButton(tr("btn_step_right", "Direita ↷"))
+        self.btn_step_r.setObjectName("stepBtn")
+        self.btn_step_r.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.btn_step_r.setToolTip("Giro rápido de 0.35s para a direita")
+        self.btn_step_r.clicked.connect(lambda: self.cam_mgr.ptz_step("right", self.get_speed(), 0.35))
+        step_box.addWidget(self.btn_step_l, 1)
+        step_box.addWidget(self.btn_step_r, 1)
         ptz_layout.addLayout(step_box)
 
         # Auto-Tracking (Human Detection) Section
@@ -1658,11 +1672,11 @@ class MainWindow(QMainWindow):
         track_layout.setContentsMargins(8, 8, 8, 8)
         track_layout.setSpacing(4)
 
-        lbl_track = QLabel("🤖 Rastreamento Humano:")
-        lbl_track.setObjectName("subTitle")
-        track_layout.addWidget(lbl_track)
+        self.lbl_track = QLabel(tr("track_title", "🤖 Rastreamento Humano:"))
+        self.lbl_track.setObjectName("subTitle")
+        track_layout.addWidget(self.lbl_track)
 
-        self.chk_autotrack = QCheckBox("Modo Automático (Pessoas)")
+        self.chk_autotrack = QCheckBox(tr("track_chk", "Modo Automático (Pessoas)"))
         self.chk_autotrack.setToolTip("Modo Automático Inteligente:\nA câmera detecta pessoas automaticamente e gira os motores para acompanhá-las em tempo real.")
         self.chk_autotrack.toggled.connect(self.toggle_auto_tracking)
         track_layout.addWidget(self.chk_autotrack)
@@ -1676,15 +1690,15 @@ class MainWindow(QMainWindow):
         rec_layout.setContentsMargins(8, 8, 8, 8)
         rec_layout.setSpacing(5)
 
-        lbl_rec_title = QLabel("🎥 Gravação de Vídeo (MP4):")
-        lbl_rec_title.setObjectName("subTitle")
-        rec_layout.addWidget(lbl_rec_title)
+        self.lbl_rec_title = QLabel(tr("rec_title", "🎥 Gravação de Vídeo (MP4):"))
+        self.lbl_rec_title.setObjectName("subTitle")
+        rec_layout.addWidget(self.lbl_rec_title)
 
         dur_box = QHBoxLayout()
         dur_box.setSpacing(4)
-        lbl_dur = QLabel("Duração:")
-        lbl_dur.setStyleSheet("font-size: 11px; color: #94a3b8;")
-        dur_box.addWidget(lbl_dur)
+        self.lbl_dur = QLabel(tr("rec_dur", "Duração:"))
+        self.lbl_dur.setStyleSheet("font-size: 11px; color: #94a3b8;")
+        dur_box.addWidget(self.lbl_dur)
 
         self.combo_rec_duration = QComboBox()
         self.combo_rec_duration.setObjectName("recDurationCombo")
@@ -1694,34 +1708,23 @@ class MainWindow(QMainWindow):
             lambda idx: (self.combo_rec_duration.setCurrentIndex(idx.row()), self.combo_rec_duration.hidePopup())
         )
 
-        self.combo_rec_duration.addItem("Sem limite (Manual)", 0)
-        self.combo_rec_duration.addItem("15 minutos", 15 * 60)
-        self.combo_rec_duration.addItem("30 minutos", 30 * 60)
-        self.combo_rec_duration.addItem("1 hora", 60 * 60)
-        self.combo_rec_duration.addItem("2 horas", 120 * 60)
-        self.combo_rec_duration.addItem("4 horas", 240 * 60)
-        self.combo_rec_duration.addItem("6 horas", 360 * 60)
-        self.combo_rec_duration.addItem("8 horas", 480 * 60)
-        self.combo_rec_duration.addItem("10 horas (Desligar PC)", 600 * 60)
-        self.combo_rec_duration.addItem("12 horas", 720 * 60)
-        self.combo_rec_duration.addItem("24 horas", 1440 * 60)
         self.combo_rec_duration.setToolTip("Tempo de Gravação / Interrupção Programada:\nEscolha após quanto tempo interromper a gravação automaticamente, ou grave sem limite.")
         self.combo_rec_duration.currentIndexChanged.connect(self.on_rec_duration_changed)
         dur_box.addWidget(self.combo_rec_duration, 1)
         rec_layout.addLayout(dur_box)
 
-        self.btn_record = QPushButton("🔴 Iniciar Gravação")
+        self.btn_record = QPushButton(tr("btn_start_rec", "🔴 Iniciar Gravação"))
         self.btn_record.setObjectName("btnRecord")
         self.btn_record.setMinimumHeight(32)
         self.btn_record.setToolTip("Gravação de Vídeo em Formato Universal MP4:\nGrava o vídeo diretamente na sua pasta Vídeos.\nAtalho: Tecla R")
         self.btn_record.clicked.connect(self.toggle_recording)
         rec_layout.addWidget(self.btn_record)
 
-        self.chk_shutdown_after_rec = QCheckBox("Desligar PC ao concluir")
+        self.chk_shutdown_after_rec = QCheckBox(tr("rec_chk_shutdown", "Desligar PC ao concluir"))
         self.chk_shutdown_after_rec.setToolTip("Desligar o Computador ao Concluir:\nQuando a gravação com tempo programado terminar (ex: 30m, 1h, 10h), o computador será desligado automaticamente.")
         rec_layout.addWidget(self.chk_shutdown_after_rec)
 
-        self.lbl_rec_status = QLabel("📁 Salva na pasta Vídeos")
+        self.lbl_rec_status = QLabel(tr("rec_status_saved", "📁 Salva na pasta Vídeos"))
         self.lbl_rec_status.setStyleSheet("color: #94a3b8; font-size: 11px;")
         self.lbl_rec_status.setWordWrap(True)
         rec_layout.addWidget(self.lbl_rec_status)
@@ -1735,9 +1738,9 @@ class MainWindow(QMainWindow):
         light_layout.setContentsMargins(8, 8, 8, 8)
         light_layout.setSpacing(5)
 
-        lbl_light_title = QLabel("💡 Iluminação & Visão Noturna:")
-        lbl_light_title.setObjectName("subTitle")
-        light_layout.addWidget(lbl_light_title)
+        self.lbl_light_title = QLabel(tr("light_title", "💡 Iluminação & Visão Noturna:"))
+        self.lbl_light_title.setObjectName("subTitle")
+        light_layout.addWidget(self.lbl_light_title)
 
         light_seg_box = QFrame()
         light_seg_box.setObjectName("segmentedBox")
@@ -1745,7 +1748,7 @@ class MainWindow(QMainWindow):
         seg_layout.setContentsMargins(2, 2, 2, 2)
         seg_layout.setSpacing(2)
 
-        self.btn_light_night = QPushButton("🌙 Noturno")
+        self.btn_light_night = QPushButton(tr("light_night", "🌙 Noturno"))
         self.btn_light_night.setCheckable(True)
         self.btn_light_night.setChecked(True)
         self.btn_light_night.setObjectName("segmentBtn")
@@ -1753,7 +1756,7 @@ class MainWindow(QMainWindow):
         self.btn_light_night.setToolTip("Modo Noturno (Infravermelho):\nVisão noturna infravermelha padrão em preto e branco, com a luz branca apagada.")
         self.btn_light_night.clicked.connect(lambda: self.set_light_mode("night"))
 
-        self.btn_light_on = QPushButton("💡 Iluminado")
+        self.btn_light_on = QPushButton(tr("light_flood", "💡 Iluminado"))
         self.btn_light_on.setCheckable(True)
         self.btn_light_on.setObjectName("segmentBtn")
         self.btn_light_on.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -1773,14 +1776,14 @@ class MainWindow(QMainWindow):
         audio_layout.setContentsMargins(8, 8, 8, 8)
         audio_layout.setSpacing(5)
 
-        lbl_audio_title = QLabel("🎙️ Áudio & Interfone:")
-        lbl_audio_title.setObjectName("subTitle")
-        audio_layout.addWidget(lbl_audio_title)
+        self.lbl_audio_title = QLabel(tr("audio_title", "🎙️ Áudio & Interfone:"))
+        self.lbl_audio_title.setObjectName("subTitle")
+        audio_layout.addWidget(self.lbl_audio_title)
 
         audio_btn_box = QHBoxLayout()
         audio_btn_box.setSpacing(4)
 
-        self.btn_listen_cam = QPushButton("🔇 Ouvir")
+        self.btn_listen_cam = QPushButton(tr("btn_listen", "🔇 Ouvir"))
         self.btn_listen_cam.setCheckable(True)
         self.btn_listen_cam.setObjectName("btnAudioListen")
         self.btn_listen_cam.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -1789,7 +1792,7 @@ class MainWindow(QMainWindow):
         self.btn_listen_cam.toggled.connect(self.toggle_listen_camera)
         audio_btn_box.addWidget(self.btn_listen_cam, 1)
 
-        self.btn_talk_cam = QPushButton("🎙️ Falar")
+        self.btn_talk_cam = QPushButton(tr("btn_talk", "🎙️ Falar"))
         self.btn_talk_cam.setCheckable(True)
         self.btn_talk_cam.setObjectName("btnAudioTalk")
         self.btn_talk_cam.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -1800,7 +1803,7 @@ class MainWindow(QMainWindow):
 
         audio_layout.addLayout(audio_btn_box)
 
-        self.lbl_audio_hint = QLabel("🎤 Microfone do PC pronto")
+        self.lbl_audio_hint = QLabel(tr("audio_mic_ready", "🎤 Microfone do PC pronto"))
         self.lbl_audio_hint.setStyleSheet("color: #94a3b8; font-size: 11px;")
         self.lbl_audio_hint.setWordWrap(True)
         audio_layout.addWidget(self.lbl_audio_hint)
@@ -1809,7 +1812,7 @@ class MainWindow(QMainWindow):
 
         # Camera Reboot Section
         ptz_layout.addSpacing(4)
-        self.btn_reboot = QPushButton("🔄 Reiniciar Câmera")
+        self.btn_reboot = QPushButton(tr("btn_reboot", "🔄 Reiniciar Câmera"))
         self.btn_reboot.setObjectName("btnReboot")
         self.btn_reboot.setToolTip("Reiniciar Câmera:\nEnvia o comando de reinicialização para o hardware da câmera.")
         self.btn_reboot.clicked.connect(self.prompt_reboot_camera)
@@ -1817,7 +1820,7 @@ class MainWindow(QMainWindow):
 
         ptz_layout.addStretch()
 
-        self.btn_hide_ptz = QPushButton("Esconder Controles ▶")
+        self.btn_hide_ptz = QPushButton(tr("btn_hide_controls", "Esconder Controles ▶"))
         self.btn_hide_ptz.setObjectName("linkButton")
         self.btn_hide_ptz.setToolTip("Ocultar painel lateral de controles")
         self.btn_hide_ptz.clicked.connect(self.toggle_ptz_panel)
@@ -1857,13 +1860,13 @@ class MainWindow(QMainWindow):
 
         stat_layout.addStretch()
 
-        self.btn_show_ptz = QPushButton("◀ Mostrar Controles PTZ")
+        self.btn_show_ptz = QPushButton(tr("btn_show_controls", "◀ Mostrar Controles PTZ"))
         self.btn_show_ptz.setObjectName("linkButton")
         self.btn_show_ptz.setVisible(False)
         self.btn_show_ptz.clicked.connect(self.toggle_ptz_panel)
         stat_layout.addWidget(self.btn_show_ptz)
 
-        self.lbl_keys = QLabel("Atalhos: [↑ ↓ ← →] ou Analógico | [2 Cliques / L2 / R2] Ampliar Lente | [Espaço / ○] Pausar | [S / △] Foto | [R] Gravar | [F11] Tela Cheia")
+        self.lbl_keys = QLabel(tr("status_shortcuts", "Atalhos: [↑ ↓ ← →] ou Analógico | [2 Cliques / L2 / R2] Ampliar Lente | [Espaço / ○] Pausar | [S / △] Foto | [R] Gravar | [F11] Tela Cheia"))
         self.lbl_keys.setStyleSheet("color: #64748b; font-size: 11px;")
         self.lbl_keys.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Fixed)
         self.lbl_keys.setToolTip("Clique em '🎮 Dicas' no topo para ver o guia completo de controles e atalhos.")
@@ -1952,6 +1955,10 @@ class MainWindow(QMainWindow):
         is_visible = target.isVisible()
         target.setVisible(not is_visible)
         self.btn_show_ptz.setVisible(is_visible)
+        if hasattr(self, "btn_hide_ptz"):
+            self.btn_hide_ptz.setText(tr("btn_show_controls") if is_visible else tr("btn_hide_controls"))
+        if hasattr(self, "btn_show_ptz"):
+            self.btn_show_ptz.setText(tr("btn_show_controls"))
 
     def toggle_settings_panel(self):
         self.panel_settings.setVisible(not self.panel_settings.isVisible())
@@ -2164,11 +2171,41 @@ class MainWindow(QMainWindow):
             self.update_ui_texts()
             self.video_widget.show_toast(f"🌐 {self.combo_lang.currentText()}", duration_ms=2500)
 
+    def update_duration_combo(self):
+        if not hasattr(self, "combo_rec_duration"):
+            return
+        cur_idx = self.combo_rec_duration.currentIndex()
+        if cur_idx < 0:
+            cur_idx = 0
+        self.combo_rec_duration.blockSignals(True)
+        self.combo_rec_duration.clear()
+        
+        m_str = tr("dur_min", "minutos")
+        h_str = tr("dur_hour", "hora")
+        hs_str = tr("dur_hours", "horas")
+        
+        self.combo_rec_duration.addItem(tr("dur_unlimited", "Sem limite (Manual)"), 0)
+        self.combo_rec_duration.addItem(f"15 {m_str}", 15 * 60)
+        self.combo_rec_duration.addItem(f"30 {m_str}", 30 * 60)
+        self.combo_rec_duration.addItem(f"1 {h_str}", 60 * 60)
+        self.combo_rec_duration.addItem(f"2 {hs_str}", 120 * 60)
+        self.combo_rec_duration.addItem(f"4 {hs_str}", 240 * 60)
+        self.combo_rec_duration.addItem(f"6 {hs_str}", 360 * 60)
+        self.combo_rec_duration.addItem(f"8 {hs_str}", 480 * 60)
+        self.combo_rec_duration.addItem(f"10 {hs_str} ({tr('rec_chk_shutdown', 'Desligar PC')})", 600 * 60)
+        self.combo_rec_duration.addItem(f"12 {hs_str}", 720 * 60)
+        self.combo_rec_duration.addItem(f"24 {hs_str}", 1440 * 60)
+        
+        if cur_idx < self.combo_rec_duration.count():
+            self.combo_rec_duration.setCurrentIndex(cur_idx)
+        self.combo_rec_duration.blockSignals(False)
+
     def update_ui_texts(self):
         self.setWindowTitle(tr("app_title"))
         w = self.width()
         is_compact = (w < 920)
 
+        # Top Bar
         if hasattr(self, "btn_snapshot"):
             self.btn_snapshot.setText("📸" if is_compact else tr("btn_photo"))
             self.btn_snapshot.setToolTip(tr("tip_photo"))
@@ -2193,6 +2230,85 @@ class MainWindow(QMainWindow):
         if hasattr(self, "btn_discover"):
             self.btn_discover.setToolTip(tr("tip_discover"))
 
+        # Settings Drawer (Row 1)
+        if hasattr(self, "lbl_conn"):
+            self.lbl_conn.setText(tr("sett_conn"))
+        if hasattr(self, "lbl_ip"):
+            self.lbl_ip.setText(tr("sett_ip"))
+        if hasattr(self, "lbl_port"):
+            self.lbl_port.setText(tr("sett_port"))
+        if hasattr(self, "lbl_user"):
+            self.lbl_user.setText(tr("sett_user"))
+        if hasattr(self, "lbl_pass"):
+            self.lbl_pass.setText(tr("sett_pass"))
+
+        # Settings Drawer (Row 2)
+        if hasattr(self, "lbl_pref"):
+            self.lbl_pref.setText(tr("sett_options"))
+        if hasattr(self, "chk_invert_x"):
+            self.chk_invert_x.setText(tr("chk_invert_x"))
+        if hasattr(self, "chk_autostart"):
+            self.chk_autostart.setText(tr("chk_autostart"))
+        if hasattr(self, "chk_start_minimized"):
+            self.chk_start_minimized.setText(tr("chk_start_minimized"))
+        if hasattr(self, "lbl_lang_setting"):
+            self.lbl_lang_setting.setText(tr("lbl_language"))
+        if hasattr(self, "btn_reset_cache"):
+            self.btn_reset_cache.setText(tr("btn_reset_cache"))
+        if hasattr(self, "btn_apply"):
+            self.btn_apply.setText(tr("btn_save_connect"))
+
+        # Right Panel - PTZ
+        if hasattr(self, "lbl_ptz_title"):
+            self.lbl_ptz_title.setText(tr("ptz_title"))
+        if hasattr(self, "lbl_hint"):
+            self.lbl_hint.setText(tr("ptz_hint"))
+        if hasattr(self, "lbl_vel"):
+            self.lbl_vel.setText(tr("speed_label"))
+        if hasattr(self, "lbl_slow"):
+            self.lbl_slow.setText(tr("speed_slow"))
+        if hasattr(self, "lbl_fast"):
+            self.lbl_fast.setText(tr("speed_fast"))
+        if hasattr(self, "lbl_step"):
+            self.lbl_step.setText(tr("step_title"))
+        if hasattr(self, "btn_step_l"):
+            self.btn_step_l.setText(tr("btn_step_left"))
+        if hasattr(self, "btn_step_r"):
+            self.btn_step_r.setText(tr("btn_step_right"))
+
+        # Right Panel - Tracking
+        if hasattr(self, "lbl_track"):
+            self.lbl_track.setText(tr("track_title"))
+        if hasattr(self, "chk_autotrack"):
+            self.chk_autotrack.setText(tr("track_chk"))
+
+        # Right Panel - Recording
+        if hasattr(self, "lbl_rec_title"):
+            self.lbl_rec_title.setText(tr("rec_title"))
+        if hasattr(self, "lbl_dur"):
+            self.lbl_dur.setText(tr("rec_dur"))
+        if hasattr(self, "chk_shutdown_after_rec"):
+            self.chk_shutdown_after_rec.setText(tr("rec_chk_shutdown"))
+        if hasattr(self, "lbl_rec_status") and not (self.recorder and self.recorder.isRunning()):
+            self.lbl_rec_status.setText(tr("rec_status_saved"))
+        if hasattr(self, "btn_record"):
+            if not self.recorder or not self.recorder.isRunning():
+                self.btn_record.setText(tr("btn_start_rec"))
+            else:
+                self.btn_record.setText(tr("btn_stop_rec"))
+        self.update_duration_combo()
+
+        # Right Panel - Lighting
+        if hasattr(self, "lbl_light_title"):
+            self.lbl_light_title.setText(tr("light_title"))
+        if hasattr(self, "btn_light_night"):
+            self.btn_light_night.setText(tr("light_night"))
+        if hasattr(self, "btn_light_on"):
+            self.btn_light_on.setText(tr("light_flood"))
+
+        # Right Panel - Audio
+        if hasattr(self, "lbl_audio_title"):
+            self.lbl_audio_title.setText(tr("audio_title"))
         if hasattr(self, "btn_listen_cam"):
             if not self.btn_listen_cam.isChecked():
                 self.btn_listen_cam.setText(tr("btn_listen"))
@@ -2205,35 +2321,39 @@ class MainWindow(QMainWindow):
                 self.btn_talk_cam.setText(tr("btn_talking"))
             self.btn_talk_cam.setToolTip(tr("tip_talk"))
 
-        if hasattr(self, "btn_tracking"):
-            self.btn_tracking.setText(tr("btn_tracking"))
-        if hasattr(self, "btn_turn_left"):
-            self.btn_turn_left.setText(tr("btn_turn_left"))
-        if hasattr(self, "btn_turn_right"):
-            self.btn_turn_right.setText(tr("btn_turn_right"))
+        # Right Panel - Reboot & Hide
         if hasattr(self, "btn_reboot"):
             self.btn_reboot.setText(tr("btn_reboot"))
+        if hasattr(self, "btn_hide_ptz"):
+            vis = self.scroll_ptz.isVisible() if hasattr(self, "scroll_ptz") and self.scroll_ptz else True
+            self.btn_hide_ptz.setText(tr("btn_hide_controls") if vis else tr("btn_show_controls"))
+        if hasattr(self, "btn_show_ptz"):
+            self.btn_show_ptz.setText(tr("btn_show_controls"))
 
-        if hasattr(self, "btn_record"):
-            if not self.recorder or not self.recorder.isRunning():
-                self.btn_record.setText(tr("btn_start_rec"))
+        # Tips Panel
+        if hasattr(self, "lbl_tips_head"):
+            self.lbl_tips_head.setText(tr("tips_title"))
+        if hasattr(self, "btn_close_tips"):
+            self.btn_close_tips.setText(tr("tips_close"))
+        if hasattr(self, "lbl_gp_t"):
+            self.lbl_gp_t.setText(tr("tips_gamepad_title"))
+        if hasattr(self, "lbl_kb_t"):
+            self.lbl_kb_t.setText(tr("tips_kb_title"))
+        if hasattr(self, "tips_gp_labels"):
+            for lbl, key, default in self.tips_gp_labels:
+                lbl.setText(tr(key, default))
+        if hasattr(self, "tips_kb_labels"):
+            for lbl, key, default in self.tips_kb_labels:
+                lbl.setText(tr(key, default))
+
+        # Status Bar
+        if hasattr(self, "lbl_keys"):
+            if is_compact:
+                self.lbl_keys.setText(tr("status_shortcuts_compact"))
             else:
-                self.btn_record.setText(tr("btn_stop_rec"))
-        if hasattr(self, "chk_shutdown"):
-            self.chk_shutdown.setText(tr("chk_shutdown"))
-
-        if hasattr(self, "chk_invert_x"):
-            self.chk_invert_x.setText(tr("chk_invert_x"))
-        if hasattr(self, "chk_autostart"):
-            self.chk_autostart.setText(tr("chk_autostart"))
-        if hasattr(self, "chk_start_minimized"):
-            self.chk_start_minimized.setText(tr("chk_start_minimized"))
-        if hasattr(self, "btn_reset_cache"):
-            self.btn_reset_cache.setText(tr("btn_reset_cache"))
-        if hasattr(self, "btn_apply"):
-            self.btn_apply.setText(tr("btn_save_connect"))
-        if hasattr(self, "lbl_lang_setting"):
-            self.lbl_lang_setting.setText(tr("lbl_language"))
+                self.lbl_keys.setText(tr("status_shortcuts"))
+        if hasattr(self, "lbl_status") and (self.lbl_status.text().startswith("🟢") or self.lbl_status.text() == "🟢 Pronto"):
+            self.lbl_status.setText(tr("status_ready"))
 
     def connect_to_camera(self, ip: str, port: int = 8899, user: Optional[str] = None, password: Optional[str] = None):
         if user is None:
@@ -2460,7 +2580,7 @@ class MainWindow(QMainWindow):
                 self.recorder.start()
 
                 self.btn_record.setEnabled(True)
-                self.btn_record.setText("⏹️ Interromper Gravação")
+                self.btn_record.setText(tr("btn_stop_rec", "⏹️ Parar Gravação"))
                 self.btn_record.setStyleSheet("background-color: #dc2626; border-color: #ef4444; font-weight: bold; color: white;")
                 self.btn_record.setToolTip("Interromper Gravação Agora:\nClique aqui para parar a gravação e salvar o vídeo imediatamente.")
                 self.combo_rec_duration.setEnabled(False)
@@ -2474,7 +2594,7 @@ class MainWindow(QMainWindow):
     def on_recording_error(self, err_msg: str):
         """Safely handles recording background error without crashing the application."""
         self.btn_record.setEnabled(True)
-        self.btn_record.setText("🔴 Iniciar Gravação")
+        self.btn_record.setText(tr("btn_start_rec", "🔴 Iniciar Gravação"))
         self.btn_record.setStyleSheet("")
         self.btn_record.setToolTip("Gravação de Vídeo em Formato Universal MP4:\nGrava o vídeo diretamente na sua pasta Vídeos.\nAtalho: Tecla R")
         self.combo_rec_duration.setEnabled(True)
@@ -2509,7 +2629,7 @@ class MainWindow(QMainWindow):
     def on_recording_finished(self, filepath: str, elapsed_sec: int):
         filename = Path(filepath).name
         self.btn_record.setEnabled(True)
-        self.btn_record.setText("🔴 Iniciar Gravação")
+        self.btn_record.setText(tr("btn_start_rec", "🔴 Iniciar Gravação"))
         self.btn_record.setStyleSheet("")
         self.btn_record.setToolTip("Gravação de Vídeo em Formato Universal MP4:\nGrava o vídeo diretamente na sua pasta Vídeos.\nAtalho: Tecla R")
         self.combo_rec_duration.setEnabled(True)
@@ -2579,7 +2699,7 @@ class MainWindow(QMainWindow):
         """Toggles listening to live camera microphone audio through PC speakers."""
         self.is_listening_audio = checked
         if checked:
-            self.btn_listen_cam.setText("🔊 Ouvindo")
+            self.btn_listen_cam.setText(tr("btn_listening", "🔊 Ouvindo"))
             self.btn_listen_cam.setStyleSheet("background-color: #0284c7; border-color: #38bdf8; color: #ffffff; font-weight: bold;")
             self.video_widget.show_toast("🔊 Som da Câmera Ativado!\nOuvindo áudio ao vivo do ambiente.", duration_ms=2500)
             self.lbl_status.setText("🔊 Áudio da câmera ativo")
@@ -2591,7 +2711,7 @@ class MainWindow(QMainWindow):
             self.audio_receiver.status_changed.connect(self.on_audio_receiver_status)
             self.audio_receiver.start()
         else:
-            self.btn_listen_cam.setText("🔇 Ouvir")
+            self.btn_listen_cam.setText(tr("btn_listen", "🔇 Ouvir"))
             self.btn_listen_cam.setStyleSheet("")
             self.video_widget.show_toast("🔇 Som da Câmera Desativado.", duration_ms=2500)
             self.lbl_status.setText("🟢 Vídeo ao vivo")
@@ -2613,7 +2733,7 @@ class MainWindow(QMainWindow):
             if self.btn_listen_cam.isChecked():
                 self.btn_listen_cam.blockSignals(True)
                 self.btn_listen_cam.setChecked(False)
-                self.btn_listen_cam.setText("🔇 Ouvir")
+                self.btn_listen_cam.setText(tr("btn_listen", "🔇 Ouvir"))
                 self.btn_listen_cam.setStyleSheet("")
                 self.btn_listen_cam.blockSignals(False)
                 if self.audio_receiver:
@@ -2633,7 +2753,7 @@ class MainWindow(QMainWindow):
             if self.audio_receiver and self.audio_receiver.isRunning():
                 self.audio_receiver.set_muted(True)
 
-            self.btn_talk_cam.setText("🔴 Falando")
+            self.btn_talk_cam.setText(tr("btn_talking", "🔴 Falando"))
             self.btn_talk_cam.setStyleSheet("background-color: #dc2626; border: 1px solid #ef4444; color: #ffffff; font-weight: bold;")
             self.video_widget.show_toast("🎙️ Microfone Ativado!\nFale normalmente no PC. Sua voz está saindo na câmera.\nClique no botão para desligar.", duration_ms=3000)
             self.lbl_status.setText("🎙️ Transmitindo áudio para a câmera (Ao vivo)...")
@@ -2645,7 +2765,7 @@ class MainWindow(QMainWindow):
             self.talk_worker.status_changed.connect(self.on_talk_worker_status)
             self.talk_worker.start()
         else:
-            self.btn_talk_cam.setText("🎙️ Falar")
+            self.btn_talk_cam.setText(tr("btn_talk", "🎙️ Falar"))
             self.btn_talk_cam.setStyleSheet("")
 
             if self.talk_worker:
