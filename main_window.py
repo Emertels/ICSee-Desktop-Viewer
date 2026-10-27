@@ -2016,7 +2016,7 @@ class MainWindow(QMainWindow):
 
     def run_discovery(self):
         self.btn_discover.setEnabled(False)
-        self.lbl_status.setText("🔍 Varrendo rede local para detectar câmeras ICSee...")
+        self.lbl_status.setText(tr("status_scanning", "🔍 Varrendo rede local para detectar câmeras ICSee..."))
 
         if self.discovery_worker and self.discovery_worker.isRunning():
             self.discovery_worker.wait()
@@ -2029,7 +2029,7 @@ class MainWindow(QMainWindow):
         self.btn_discover.setEnabled(True)
 
         if not cameras:
-            self.lbl_status.setText("Nenhuma nova câmera detectada automaticamente.")
+            self.lbl_status.setText(tr("status_no_cams", "Nenhuma nova câmera detectada automaticamente."))
             return
 
         current_ip = self.cam_mgr.ip or self.config.get("ip", "192.168.1.10")
@@ -2052,7 +2052,7 @@ class MainWindow(QMainWindow):
         self.combo_cams.blockSignals(False)
 
         count = len(cameras)
-        self.lbl_status.setText(f"🟢 {count} câmera(s) disponível(is) na rede.")
+        self.lbl_status.setText(tr("status_cams_found", f"🟢 {count} câmera(s) disponível(is) na rede.").replace("{count}", str(count)))
 
     def on_autostart_toggled(self, checked: bool):
         self.config["start_with_windows"] = checked
@@ -2352,8 +2352,11 @@ class MainWindow(QMainWindow):
                 self.lbl_keys.setText(tr("status_shortcuts_compact"))
             else:
                 self.lbl_keys.setText(tr("status_shortcuts"))
-        if hasattr(self, "lbl_status") and (self.lbl_status.text().startswith("🟢") or self.lbl_status.text() == "🟢 Pronto"):
-            self.lbl_status.setText(tr("status_ready"))
+        if hasattr(self, "lbl_status"):
+            if hasattr(self, "last_worker_status") and self.last_worker_status:
+                self._refresh_worker_status_ui()
+            elif self.lbl_status.text().startswith("🟢") or self.lbl_status.text() == "🟢 Pronto":
+                self.lbl_status.setText(tr("status_ready"))
 
     def connect_to_camera(self, ip: str, port: int = 8899, user: Optional[str] = None, password: Optional[str] = None):
         if user is None:
@@ -2362,7 +2365,7 @@ class MainWindow(QMainWindow):
             password = self.config.get("password", "")
 
         self.video_widget.set_status(f"Conectando à câmera em {ip}...")
-        self.lbl_status.setText(f"🟡 Conectando a {ip} com usuário '{user}'...")
+        self.lbl_status.setText(tr("status_connecting_ip", f"🟡 Conectando a {ip} com usuário '{user}'...").replace("{ip}", ip).replace("{user}", user))
 
         if self.connect_worker and self.connect_worker.isRunning():
             self.connect_worker.wait()
@@ -2373,8 +2376,8 @@ class MainWindow(QMainWindow):
 
     def on_connected_result(self, success: bool, ip: str):
         if not success:
-            self.video_widget.set_status(f"Erro ao conectar com {ip}.\nVerifique se o usuário e senha estão corretos.")
-            self.lbl_status.setText(f"🔴 Falha na autenticação com {ip}")
+            self.video_widget.set_status(tr("video_auth_error", f"Erro ao conectar com {ip}.\nVerifique se o usuário e senha estão corretos.").replace("{ip}", ip))
+            self.lbl_status.setText(tr("status_auth_failed", f"🔴 Falha na autenticação com {ip}").replace("{ip}", ip))
             return
 
         model = self.cam_mgr.device_info.get("Model", "ICSee")
@@ -2456,23 +2459,28 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot(str)
     def on_worker_status(self, status: str):
+        self.last_worker_status = status
+        self._refresh_worker_status_ui()
+
+    def _refresh_worker_status_ui(self):
+        status = getattr(self, "last_worker_status", None)
         if status == "connected":
             self.video_widget.set_switching(False)
             q_label = "HD Ultra" if self.current_w > 1000 else "SD Fluido"
             res_str = f" • {self.current_w}x{self.current_h} ({q_label})" if self.current_w > 0 else ""
-            self.lbl_status.setText(f"🟢 Vídeo conectado{res_str}")
+            self.lbl_status.setText(f"🟢 {tr('status_connected', 'Vídeo conectado')}{res_str}")
         elif status == "switching":
             self.video_widget.set_switching(True)
-            self.lbl_status.setText("🔄 Sincronizando vídeo...")
+            self.lbl_status.setText(tr("status_syncing", "🔄 Sincronizando vídeo..."))
         elif status == "connecting":
-            self.lbl_status.setText("🟡 Conectando fluxo de vídeo...")
+            self.lbl_status.setText(tr("status_connecting_stream", "🟡 Conectando fluxo de vídeo..."))
             if not self.video_widget.raw_pixmap:
-                self.video_widget.set_status("Carregando fluxo de vídeo...")
+                self.video_widget.set_status(tr("video_loading_stream", "Carregando fluxo de vídeo..."))
         elif status == "disconnected":
-            self.lbl_status.setText("🔴 Vídeo desconectado")
-            self.video_widget.set_status("Conexão perdida. Tentando reconectar...")
+            self.lbl_status.setText(tr("status_disconnected", "🔴 Vídeo desconectado"))
+            self.video_widget.set_status(tr("video_lost_reconnecting", "Conexão perdida. Tentando reconectar..."))
         elif status == "error":
-            self.lbl_status.setText("⚠️ Erro de leitura do fluxo")
+            self.lbl_status.setText(tr("status_stream_error", "⚠️ Erro de leitura do fluxo"))
 
     def toggle_tips_panel(self):
         """Toggles the collapsible Control Tips & Shortcuts panel."""
