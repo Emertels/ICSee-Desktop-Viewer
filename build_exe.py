@@ -45,6 +45,7 @@ cmd = [
     "--hidden-import=video_worker",
     "--hidden-import=gamepad_worker",
     "--hidden-import=main_window",
+    "--hidden-import=i18n",
     "--collect-data=zeep",
     "--collect-submodules=zeep",
     "--onedir",

@@ -1,11 +1,17 @@
 # 📷 ICSee Desktop Viewer
 
+<p align="center">
+  <b>🇧🇷 Português</b> | <a href="README.en.md">🇺🇸 English</a>
+</p>
+
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue.svg)](https://github.com/Emertels/ICSee-Desktop-Viewer/releases)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![GUI Framework](https://img.shields.io/badge/GUI-PyQt6-green.svg)](https://riverbankcomputing.com/software/pyqt/)
 [![Streaming](https://img.shields.io/badge/Streaming-OpenCV%20%2F%20RTSP-orange.svg)](https://opencv.org/)
 [![Recording](https://img.shields.io/badge/Recording-Universal%20MP4-red.svg)](https://en.wikipedia.org/wiki/MP4_file_format)
 [![Gamepad Support](https://img.shields.io/badge/Gamepad-DualSense%20%7C%20Xbox-purple.svg)](https://github.com/pygame-community/pygame-ce)
-[![Portable Build](https://img.shields.io/badge/Build-Portable%20EXE-blueviolet.svg)](https://github.com/)
+[![i18n](https://img.shields.io/badge/i18n-10%20Idiomas-success.svg)](#-suporte-a-10-idiomas-nativos)
+[![Portable Build](https://img.shields.io/badge/Build-Portable%20EXE-blueviolet.svg)](https://github.com/Emertels/ICSee-Desktop-Viewer/releases)
 [![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 [![OS](https://img.shields.io/badge/OS-Windows%2010%20%2F%2011-0078D6.svg)](https://www.microsoft.com/windows)
 
@@ -44,6 +50,8 @@ Um aplicativo desktop moderno, ultraleve, portátil e de alto desempenho para Wi
   - Giro analógico suave e proporcional via stick esquerdo.
 - **🧹 Limpar Dados / Cache (Privacidade & Reset de Fábrica):**
   - Botão integrado no painel de configurações para apagar senhas, IPs salvos e preferências locais em 1 clique, ideal antes de compartilhar ou migrar de computador.
+- **🌐 10 Idiomas Nativos Integrados:**
+  - Interface com tradução nativa completa para **Português (Brasil)**, **English**, **Español**, **Français**, **Deutsch**, **Italiano**, **日本語**, **简体中文**, **Русский** e **한국어**, selecionáveis a qualquer momento.
 - **🪟 Iniciar com o Windows & Iniciar Minimizado:** Opção integrada no registro do Windows para inicialização automática silenciosa na bandeja/barra de tarefas.
 - **📦 100% Portátil:** Pode ser empacotado em um executável autônomo `.exe` que roda direto de um pendrive ou partição sem necessidade de ter Python instalado.
 

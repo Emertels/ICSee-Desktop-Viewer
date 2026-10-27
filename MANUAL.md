@@ -1,5 +1,9 @@
 # 📖 Manual do Usuário - ICSee Desktop Viewer
 
+<p align="center">
+  <b>🇧🇷 Português</b> | <a href="MANUAL.en.md">🇺🇸 English</a>
+</p>
+
 Guia de instruções e referência de uso do **ICSee Desktop Viewer** para câmeras de segurança Xiongmai / ICSee com lente dupla (*Dual-Lens*).
 
 ---

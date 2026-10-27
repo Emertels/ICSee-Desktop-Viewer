@@ -10,6 +10,7 @@ __pycache__/
 # PyInstaller build artifacts
 build/
 dist/
+*.zip
 
 # Logs, crash dumps, and test captures
 *.log

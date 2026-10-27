@@ -37,6 +37,7 @@ from video_worker import VideoWorker
 from gamepad_worker import GamepadWorker
 from audio_manager import CameraAudioReceiver, CameraTalkWorker
 from PyQt6.QtMultimedia import QMediaDevices
+from i18n import tr, set_language, get_language, LANGUAGES, register_listener
 
 if getattr(sys, "frozen", False):
     APP_DIR = Path(sys.executable).parent
@@ -59,7 +60,8 @@ DEFAULT_CONFIG = {
     "start_with_windows": False,
     "start_minimized": False,
     "window_width": 960,
-    "window_height": 560
+    "window_height": 560,
+    "lang": "pt"
 }
 
 def set_windows_autostart(enable: bool, minimized: bool = False):
@@ -1086,6 +1088,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("ICSee Desktop Viewer - Câmera ao Vivo")
 
         self.config = self.load_config()
+        set_language(self.config.get("lang", "pt"))
         
         # Exact default size requested: 960 x 560
         init_w = self.config.get("window_width", 960)
@@ -1131,6 +1134,8 @@ class MainWindow(QMainWindow):
         self.init_ui()
         self.apply_theme()
         self.init_gamepad()
+        register_listener(self.update_ui_texts)
+        self.update_ui_texts()
 
         # Dedicated F11 Global Shortcut covering Windows taskbar
         self.shortcut_f11 = QShortcut(QKeySequence(Qt.Key.Key_F11), self)
@@ -1157,11 +1162,11 @@ class MainWindow(QMainWindow):
         # Automodulate top bar buttons on compression to prevent widget collision
         is_compact = (w < 920)
         if hasattr(self, "btn_snapshot"):
-            self.btn_snapshot.setText("📸" if is_compact else "📸 Foto")
-            self.btn_tips.setText("🎮" if is_compact else "🎮 Dicas")
-            self.btn_top.setText("📌" if is_compact else "📌 Fixar")
-            self.btn_layout_vert.setText("⯀" if is_compact else "⯀ Normal")
-            self.btn_layout_side.setText("⚏" if is_compact else "⚏ Lado a Lado")
+            self.btn_snapshot.setText("📸" if is_compact else tr("btn_photo"))
+            self.btn_tips.setText("🎮" if is_compact else tr("btn_tips"))
+            self.btn_top.setText("📌" if is_compact else tr("btn_pin"))
+            self.btn_layout_vert.setText("⯀" if is_compact else tr("btn_normal"))
+            self.btn_layout_side.setText("⚏" if is_compact else tr("btn_side"))
 
         if hasattr(self, "lbl_keys"):
             if w < 780:
@@ -1422,19 +1427,34 @@ class MainWindow(QMainWindow):
         self.chk_start_minimized.toggled.connect(self.on_start_minimized_toggled)
         row2.addWidget(self.chk_start_minimized)
 
+        self.lbl_lang_setting = QLabel(tr("lbl_language", "🌐 Idioma:"))
+        self.lbl_lang_setting.setStyleSheet("font-weight: bold; color: #38bdf8;")
+        row2.addWidget(self.lbl_lang_setting)
+
+        self.combo_lang = QComboBox()
+        self.combo_lang.setFixedWidth(135)
+        self.combo_lang.setToolTip("Selecione o idioma da interface (10 idiomas nativos)")
+        for code, label in LANGUAGES:
+            self.combo_lang.addItem(label, code)
+        cur_lang = self.config.get("lang", "pt")
+        idx = next((i for i, (c, _) in enumerate(LANGUAGES) if c == cur_lang), 0)
+        self.combo_lang.setCurrentIndex(idx)
+        self.combo_lang.currentIndexChanged.connect(self.on_language_changed)
+        row2.addWidget(self.combo_lang)
+
         row2.addStretch()
 
-        btn_reset = QPushButton("🧹 Limpar Dados / Cache")
-        btn_reset.setObjectName("btnResetCache")
-        btn_reset.setToolTip("Limpar Dados / Cache:\nApaga todas as credenciais salvas, histórico e restaura os padrões limpos.")
-        btn_reset.clicked.connect(self.prompt_reset_cache)
-        row2.addWidget(btn_reset)
+        self.btn_reset_cache = QPushButton(tr("btn_reset_cache", "🧹 Limpar Dados / Cache"))
+        self.btn_reset_cache.setObjectName("btnResetCache")
+        self.btn_reset_cache.setToolTip("Limpar Dados / Cache:\nApaga todas as credenciais salvas, histórico e restaura os padrões limpos.")
+        self.btn_reset_cache.clicked.connect(self.prompt_reset_cache)
+        row2.addWidget(self.btn_reset_cache)
 
-        btn_apply = QPushButton("💾 Salvar e Conectar")
-        btn_apply.setObjectName("primaryButton")
-        btn_apply.setToolTip("Salvar e Conectar:\nGrava as configurações imediatamente e reconecta à câmera.")
-        btn_apply.clicked.connect(self.apply_manual_settings)
-        row2.addWidget(btn_apply)
+        self.btn_apply = QPushButton(tr("btn_save_connect", "💾 Salvar e Conectar"))
+        self.btn_apply.setObjectName("primaryButton")
+        self.btn_apply.setToolTip("Salvar e Conectar:\nGrava as configurações imediatamente e reconecta à câmera.")
+        self.btn_apply.clicked.connect(self.apply_manual_settings)
+        row2.addWidget(self.btn_apply)
 
         sett_layout.addLayout(row2)
         main_layout.addWidget(self.panel_settings)
@@ -2077,12 +2097,8 @@ class MainWindow(QMainWindow):
     def prompt_reset_cache(self):
         reply = QMessageBox.question(
             self,
-            "Limpar Dados e Cache",
-            "Deseja realmente apagar todos os dados e credenciais salvas?\n\n"
-            "• As configurações locais serão redefinidas para o padrão.\n"
-            "• Endereço IP, usuário e senha salvos serão apagados deste computador.\n"
-            "• Inicialização automática com o Windows será desativada.\n\n"
-            "Esta ação limpa completamente seus dados locais.",
+            tr("msg_reset_title"),
+            tr("msg_reset_body"),
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
             QMessageBox.StandardButton.No
         )
@@ -2135,10 +2151,89 @@ class MainWindow(QMainWindow):
             self.video_widget.show_toast("🧹 Cache e credenciais apagados!", duration_ms=4000)
             QMessageBox.information(
                 self,
-                "Cache Limpo",
-                "Todas as informações locais e senhas foram apagadas com sucesso!\n\n"
-                "O aplicativo foi restaurado para o estado original e limpo."
+                tr("msg_reset_title"),
+                tr("msg_reset_success")
             )
+
+    def on_language_changed(self, index: int):
+        code = self.combo_lang.itemData(index)
+        if code:
+            set_language(code)
+            self.config["lang"] = code
+            self.save_config()
+            self.update_ui_texts()
+            self.video_widget.show_toast(f"🌐 {self.combo_lang.currentText()}", duration_ms=2500)
+
+    def update_ui_texts(self):
+        self.setWindowTitle(tr("app_title"))
+        w = self.width()
+        is_compact = (w < 920)
+
+        if hasattr(self, "btn_snapshot"):
+            self.btn_snapshot.setText("📸" if is_compact else tr("btn_photo"))
+            self.btn_snapshot.setToolTip(tr("tip_photo"))
+        if hasattr(self, "btn_sd"):
+            self.btn_sd.setText(tr("btn_sd"))
+            self.btn_sd.setToolTip(tr("tip_sd"))
+        if hasattr(self, "btn_hd"):
+            self.btn_hd.setText(tr("btn_hd"))
+            self.btn_hd.setToolTip(tr("tip_hd"))
+        if hasattr(self, "btn_layout_vert"):
+            self.btn_layout_vert.setText("⯀" if is_compact else tr("btn_normal"))
+            self.btn_layout_vert.setToolTip(tr("tip_normal"))
+        if hasattr(self, "btn_layout_side"):
+            self.btn_layout_side.setText("⚏" if is_compact else tr("btn_side"))
+            self.btn_layout_side.setToolTip(tr("tip_side"))
+        if hasattr(self, "btn_top"):
+            self.btn_top.setText("📌" if is_compact else tr("btn_pin"))
+            self.btn_top.setToolTip(tr("tip_pin"))
+        if hasattr(self, "btn_tips"):
+            self.btn_tips.setText("🎮" if is_compact else tr("btn_tips"))
+            self.btn_tips.setToolTip(tr("tip_tips"))
+        if hasattr(self, "btn_discover"):
+            self.btn_discover.setToolTip(tr("tip_discover"))
+
+        if hasattr(self, "btn_listen_cam"):
+            if not self.btn_listen_cam.isChecked():
+                self.btn_listen_cam.setText(tr("btn_listen"))
+            else:
+                self.btn_listen_cam.setText(tr("btn_listening"))
+        if hasattr(self, "btn_talk_cam"):
+            if not self.btn_talk_cam.isChecked():
+                self.btn_talk_cam.setText(tr("btn_talk"))
+            else:
+                self.btn_talk_cam.setText(tr("btn_talking"))
+            self.btn_talk_cam.setToolTip(tr("tip_talk"))
+
+        if hasattr(self, "btn_tracking"):
+            self.btn_tracking.setText(tr("btn_tracking"))
+        if hasattr(self, "btn_turn_left"):
+            self.btn_turn_left.setText(tr("btn_turn_left"))
+        if hasattr(self, "btn_turn_right"):
+            self.btn_turn_right.setText(tr("btn_turn_right"))
+        if hasattr(self, "btn_reboot"):
+            self.btn_reboot.setText(tr("btn_reboot"))
+
+        if hasattr(self, "btn_record"):
+            if not self.recorder or not self.recorder.isRunning():
+                self.btn_record.setText(tr("btn_start_rec"))
+            else:
+                self.btn_record.setText(tr("btn_stop_rec"))
+        if hasattr(self, "chk_shutdown"):
+            self.chk_shutdown.setText(tr("chk_shutdown"))
+
+        if hasattr(self, "chk_invert_x"):
+            self.chk_invert_x.setText(tr("chk_invert_x"))
+        if hasattr(self, "chk_autostart"):
+            self.chk_autostart.setText(tr("chk_autostart"))
+        if hasattr(self, "chk_start_minimized"):
+            self.chk_start_minimized.setText(tr("chk_start_minimized"))
+        if hasattr(self, "btn_reset_cache"):
+            self.btn_reset_cache.setText(tr("btn_reset_cache"))
+        if hasattr(self, "btn_apply"):
+            self.btn_apply.setText(tr("btn_save_connect"))
+        if hasattr(self, "lbl_lang_setting"):
+            self.lbl_lang_setting.setText(tr("lbl_language"))
 
     def connect_to_camera(self, ip: str, port: int = 8899, user: Optional[str] = None, password: Optional[str] = None):
         if user is None:
