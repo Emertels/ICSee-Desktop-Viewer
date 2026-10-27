@@ -1,0 +1,16 @@
+{
+  "ip": "192.168.1.10",
+  "port": 8899,
+  "user": "admin",
+  "password": "",
+  "quality": "sub",
+  "layout_mode": "vertical",
+  "speed": 0.5,
+  "invert_x": true,
+  "invert_y": false,
+  "always_on_top": false,
+  "start_with_windows": false,
+  "start_minimized": false,
+  "window_width": 960,
+  "window_height": 560
+}

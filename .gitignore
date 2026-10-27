@@ -1,0 +1,26 @@
+# Configuration and credentials (never commit sensitive passwords or IPs)
+config.json
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+
+# PyInstaller build artifacts
+build/
+dist/
+
+# Logs, crash dumps, and test captures
+*.log
+crash_log.txt
+*.tmp
+test_*.png
+
+# IDE and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
