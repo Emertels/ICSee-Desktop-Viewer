@@ -170,43 +170,43 @@ ICSee-Desktop-Viewer/
 
 ## 📄 License
 
-Distributed under the **MIT** License. See [LICENSE](LICENSE) for details.
-
----
-
-## 👨‍💻 About the Author
-
-Developed and maintained by **Emerson Teles** (known across developer and gaming communities as **Emertels**).
-
-Tech enthusiast, gamer, systems maintenance specialist, and software translator/localizer for Brazilian Portuguese (PT-BR). Developer focused on practical system utilities, gaming tools, intelligent automation, and complete localization solutions that bring modern software to Portuguese-speaking audiences.
-
-### 🛠️ Projects & Contributions
-
-- [AI-Chat-Vault](https://github.com/Emertels/AI-Chat-Vault) — Portable backup and precision recovery for local chats across 20+ agentic AI assistants.
-- [Antigravity — Brazilian Portuguese Translation](https://github.com/Emertels/Antigravity-Traducao-PTBR) — Complete Portuguese localization of Google Antigravity Desktop.
-- [Codex Router — Brazilian Portuguese Translation](https://github.com/Emertels/CodexRouter-Traducao-PTBR) — Complete translation and localization of Codex Router Control Center.
-- [Cursor AI — Brazilian Portuguese Translation](https://github.com/Emertels/Cursor-Traducao-PTBR) — Deep and comprehensive localization of Cursor AI for Brazilian Portuguese.
-- [Devin AI — Brazilian Portuguese Translation](https://github.com/Emertels/Devin-Traducao-PTBR) — Complete localization of Devin AI Desktop for Brazilian Portuguese.
-- [GPU Tweak III — Brazilian Portuguese Translation](https://github.com/Emertels/GPU-Tweak-III-Traducao-PTBR) — Brazilian Portuguese localization and automated installer for ASUS GPU Tweak III.
-- [ICSee Desktop Viewer](https://github.com/Emertels/ICSee-Desktop-Viewer) — Modern and portable desktop application for viewing and controlling ICSee and ONVIF cameras on Windows.
-- [Microsoft Photos Fix](https://github.com/Emertels/Microsoft-Photos-Fix) — Advanced PowerShell & C# fix restoring fast launch routes and wallpaper setting for Windows Photos app.
-- [PSBBN-Translator](https://github.com/Emertels/PSBBN-Translator) — Multilingual localization suite for the PSBBN Definitive Project (PlayStation 2) across 40 languages.
-- [Silent Hill: Homecoming — Brazilian Portuguese Translation](https://github.com/Emertels/Silent-Hill-Homecoming-Traducao-PTBR) — Complete translation and canonical revision for the PC version.
-- [Suite-Emuladores](https://github.com/Emertels/Suite-Emuladores) — Autonomous PowerShell automation suite for downloading and updating 56 gaming emulators and frontends on Windows.
-- [Xbox 360 Controller Calibration Tool](https://github.com/Emertels/Xbox-360-Controller-Calibration-Tool) — Open-source professional calibration software for Xbox 360 controllers on Windows.
-- [ZCode — Brazilian Portuguese Translation](https://github.com/Emertels/ZCode-Traducao-PTBR) — Full Brazilian Portuguese localization for ZCode Desktop.
-
-### 🌐 Connect with me & Official Communities
-
-<div align="left">
-
-[![GitHub](https://img.shields.io/badge/GitHub-Emertels-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/emertels)
-[![Website](https://img.shields.io/badge/Website-Emerson_Teles-0070F3?style=for-the-badge&logo=googlechrome&logoColor=white)](https://emertels.github.io)
-[![Discord](https://img.shields.io/badge/Discord-Emertels%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://emertels.github.io/discord)
-[![X / Twitter](https://img.shields.io/badge/X_Twitter-@emertels-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/emertels)
-[![YouTube](https://img.shields.io/badge/YouTube-Emerson_Teles-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@emersonteles2379)
-[![Telegram](https://img.shields.io/badge/Telegram-Aplicativos%20Mods-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/apksmodsandroid)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Apoiar%20Projeto-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/emertels)
-
-</div>
-
+Distributed under the **MIT** License. See [LICENSE](LICENSE) for details.
+
+---
+
+## 👨‍💻 About the Author
+
+Developed and maintained by **Emerson Teles** (known across developer and gaming communities as **Emertels**).
+
+Tech enthusiast, gamer, systems maintenance specialist, and software translator/localizer for Brazilian Portuguese (PT-BR). Developer focused on practical system utilities, gaming tools, intelligent automation, and complete localization solutions that bring modern software to Portuguese-speaking audiences.
+
+### 🛠️ Projects & Contributions
+
+- [AI-Chat-Vault](https://github.com/Emertels/AI-Chat-Vault) — Portable backup and precision recovery for local chats across 20+ agentic AI assistants.
+- [Antigravity — Brazilian Portuguese Translation](https://github.com/Emertels/Antigravity-Traducao-PTBR) — Complete Portuguese localization of Google Antigravity Desktop.
+- [Codex Router — Brazilian Portuguese Translation](https://github.com/Emertels/CodexRouter-Traducao-PTBR) — Complete translation and localization of Codex Router Control Center.
+- [Cursor AI — Brazilian Portuguese Translation](https://github.com/Emertels/Cursor-Traducao-PTBR) — Deep and comprehensive localization of Cursor AI for Brazilian Portuguese.
+- [Devin AI — Brazilian Portuguese Translation](https://github.com/Emertels/Devin-Traducao-PTBR) — Complete localization of Devin AI Desktop for Brazilian Portuguese.
+- [GPU Tweak III — Brazilian Portuguese Translation](https://github.com/Emertels/GPU-Tweak-III-Traducao-PTBR) — Brazilian Portuguese localization and automated installer for ASUS GPU Tweak III.
+- [ICSee Desktop Viewer](https://github.com/Emertels/ICSee-Desktop-Viewer) — Modern and portable desktop application for viewing and controlling ICSee and ONVIF cameras on Windows.
+- [Microsoft Photos Fix](https://github.com/Emertels/Microsoft-Photos-Fix) — Advanced PowerShell & C# fix restoring fast launch routes and wallpaper setting for Windows Photos app.
+- [PSBBN-Translator](https://github.com/Emertels/PSBBN-Translator) — Multilingual localization suite for the PSBBN Definitive Project (PlayStation 2) across 40 languages.
+- [Silent Hill: Homecoming — Brazilian Portuguese Translation](https://github.com/Emertels/Silent-Hill-Homecoming-Traducao-PTBR) — Complete translation and canonical revision for the PC version.
+- [Suite-Emuladores](https://github.com/Emertels/Suite-Emuladores) — Autonomous PowerShell automation suite for downloading and updating 56 gaming emulators and frontends on Windows.
+- [Xbox 360 Controller Calibration Tool](https://github.com/Emertels/Xbox-360-Controller-Calibration-Tool) — Open-source professional calibration software for Xbox 360 controllers on Windows.
+- [ZCode — Brazilian Portuguese Translation](https://github.com/Emertels/ZCode-Traducao-PTBR) — Full Brazilian Portuguese localization for ZCode Desktop.
+
+### 🌐 Connect with me & Official Communities
+
+<div align="left">
+
+[![GitHub](https://img.shields.io/badge/GitHub-Emertels-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/emertels)
+[![Website](https://img.shields.io/badge/Website-Emerson_Teles-0070F3?style=for-the-badge&logo=googlechrome&logoColor=white)](https://emertels.github.io)
+[![Discord](https://img.shields.io/badge/Discord-Emertels%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://emertels.github.io/discord)
+[![X / Twitter](https://img.shields.io/badge/X_Twitter-@emertels-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/emertels)
+[![YouTube](https://img.shields.io/badge/YouTube-Emerson_Teles-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@emersonteles2379)
+[![Telegram](https://img.shields.io/badge/Telegram-Aplicativos%20Mods-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/apksmodsandroid)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Apoiar%20Projeto-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/emertels)
+
+</div>
+
