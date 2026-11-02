@@ -17,6 +17,10 @@
 
 Um aplicativo desktop moderno, ultraleve, portátil e de alto desempenho para Windows, projetado para visualizar, gravar e controlar câmeras de segurança **ICSee / Xiongmai (XM535 / dual lens / lentes duplas)** e câmeras **ONVIF** em tempo real, **sem precisar de navegador** e sem depender de plugins obsoletos.
 
+<p align="center">
+  <img src="assets/icsee_desktop_viewer_preview.png" alt="Interface Principal do ICSee Desktop Viewer com Modo Lado a Lado e Guia de Dicas e Atalhos" width="95%">
+</p>
+
 ---
 
 ## ✨ Principais Funcionalidades
@@ -45,9 +49,11 @@ Um aplicativo desktop moderno, ultraleve, portátil e de alto desempenho para Wi
   - **🌙 Modo Noturno:** Visão noturna padrão por infravermelho (preto e branco) com holofotes desligados.
   - **💡 Modo Iluminado:** Acende os LEDs de luz branca da câmera para iluminar o ambiente e filmar em cores plenas no escuro.
 - **🔄 Reiniciar Hardware Remotamente:** Botão para reiniciar o hardware da câmera remotamente via rede com reconexão automática após o reboot.
-- **🎮 Suporte Nativo a Controles de Videogame:**
-  - Suporte completo a **Sony PlayStation DualSense (PS5) / DualShock 4 (PS4)** e controles **Microsoft Xbox (Series, One, 360)**.
-  - Giro analógico suave e proporcional via stick esquerdo.
+- **🎮 Suporte Nativo Total a Controles de Videogame (Gamepad):**
+  - Suporte completo e plug-and-play para controles **Sony PlayStation DualSense (PS5) / DualShock 4 (PS4)** e controles **Microsoft Xbox (Xbox Series X|S, Xbox One e Xbox 360)**.
+  - Giro analógico suave e proporcional via stick esquerdo (Pan & Tilt).
+- **💡 Painel de Dicas & Guia Rápido de Atalhos (Botão `🎮 Dicas`):**
+  - Painel integrado expansível na interface que lista instantaneamente todos os controles de Gamepad (DualSense / Xbox Series X|S / Xbox) e atalhos de Teclado & Mouse (pausar/retomar, capturar foto, gravar vídeo MP4, alternar SD/HD, tela cheia e zoom).
 - **🧹 Limpar Dados / Cache (Privacidade & Reset de Fábrica):**
   - Botão integrado no painel de configurações para apagar senhas, IPs salvos e preferências locais em 1 clique, ideal antes de compartilhar ou migrar de computador.
 - **🌐 10 Idiomas Nativos Integrados:**
@@ -70,7 +76,7 @@ Um aplicativo desktop moderno, ultraleve, portátil e de alto desempenho para Wi
 
 ## 🎮 Tabela de Controles e Atalhos
 
-| Ação | Teclado | Mouse / Interface | Sony DualSense (PS5) | Microsoft Xbox |
+| Ação | Teclado | Mouse / Interface | Sony DualSense (PS5) | Microsoft Xbox (Series X|S / One / 360) |
 | :--- | :---: | :---: | :---: | :---: |
 | **Girar Câmera (Pan / Tilt)** | `↑` `↓` `←` `→` | Botões D-Pad (`▲` `▼` `◀` `▶`) | Analógico Esquerdo / D-Pad | Analógico Esquerdo / D-Pad |
 | **Pausar / Retomar Câmera** | `Espaço` | Botão Central D-Pad (`⏸` / `▶`) | Botão Círculo (`○`) | Botão `B` |

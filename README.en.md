@@ -17,6 +17,10 @@
 
 A modern, lightweight, high-performance, and fully portable desktop client for Windows designed to view, record, and control **ICSee / Xiongmai (XM535 / dual lens)** security cameras and generic **ONVIF** cameras in real-time, **without web browsers** and without obsolete NPAPI/ActiveX plugins.
 
+<p align="center">
+  <img src="assets/icsee_desktop_viewer_preview.png" alt="Main Interface of ICSee Desktop Viewer with Side-by-Side Mode and Shortcuts Guide" width="95%">
+</p>
+
 ---
 
 ## ✨ Key Features
@@ -45,9 +49,11 @@ A modern, lightweight, high-performance, and fully portable desktop client for W
   - **🌙 Night Mode:** Standard infrared night vision (black & white) with LED floodlights turned off.
   - **💡 Floodlight Mode:** Turns on powerful white LEDs to illuminate the area and record in full color in total darkness.
 - **🔄 Remote Hardware Reboot:** One-click button to reboot the camera hardware over the network with scheduled auto-reconnect.
-- **🎮 Native Gamepad & Controller Support:**
-  - Full native support for **Sony PlayStation DualSense (PS5) / DualShock 4 (PS4)** and **Microsoft Xbox (Series, One, 360)**.
-  - Smooth proportional analog camera rotation via left thumbstick.
+- **🎮 Full Native Gamepad & Controller Support:**
+  - Complete plug-and-play support for **Sony PlayStation DualSense (PS5) / DualShock 4 (PS4)** and **Microsoft Xbox (Xbox Series X|S, Xbox One, and Xbox 360)** controllers.
+  - Smooth and proportional analog rotation via the left thumbstick (Pan & Tilt).
+- **💡 Built-in Tips Panel & Quick Controls Guide (`🎮 Tips` Button):**
+  - Integrated expandable reference panel in the UI displaying all gamepad mappings (DualSense / Xbox Series X|S / Xbox) and keyboard & mouse shortcuts (pause/resume, snapshot, MP4 recording, SD/HD switch, fullscreen, and zoom).
 - **🧹 Clear Cache / Data (Privacy & Factory Reset):**
   - Built-in button in Settings to purge saved passwords, camera IPs, and preferences with 1 click before sharing or moving PCs.
 - **🌐 Native 10 Languages Support:**
@@ -70,7 +76,7 @@ A modern, lightweight, high-performance, and fully portable desktop client for W
 
 ## 🎮 Controls & Shortcuts Reference
 
-| Action | Keyboard | Mouse / GUI | Sony DualSense (PS5) | Microsoft Xbox |
+| Action | Keyboard | Mouse / GUI | Sony DualSense (PS5) | Microsoft Xbox (Series X|S / One / 360) |
 | :--- | :---: | :---: | :---: | :---: |
 | **Pan / Tilt (Rotate)** | `↑` `↓` `←` `→` | D-Pad buttons (`▲` `▼` `◀` `▶`) | Left Analog / D-Pad | Left Analog / D-Pad |
 | **Pause / Resume Camera** | `Space` | Center D-Pad button (`⏸` / `▶`) | Circle (`○`) | `B` button |
