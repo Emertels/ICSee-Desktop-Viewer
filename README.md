@@ -18,7 +18,7 @@
 Um aplicativo desktop moderno, ultraleve, portátil e de alto desempenho para Windows, projetado para visualizar, gravar e controlar câmeras de segurança **ICSee / Xiongmai (XM535 / dual lens / lentes duplas)** e câmeras **ONVIF** em tempo real, **sem precisar de navegador** e sem depender de plugins obsoletos.
 
 <p align="center">
-  <img src="assets/icsee_desktop_viewer_preview.png" alt="Interface Principal do ICSee Desktop Viewer com Modo Lado a Lado e Guia de Dicas e Atalhos" width="95%">
+  <img src="assets/icsee_desktop_viewer_preview_censored.png" alt="Interface Principal do ICSee Desktop Viewer com Modo Lado a Lado e Guia de Dicas e Atalhos" width="95%">
 </p>
 
 ---

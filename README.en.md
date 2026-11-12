@@ -18,7 +18,7 @@
 A modern, lightweight, high-performance, and fully portable desktop client for Windows designed to view, record, and control **ICSee / Xiongmai (XM535 / dual lens)** security cameras and generic **ONVIF** cameras in real-time, **without web browsers** and without obsolete NPAPI/ActiveX plugins.
 
 <p align="center">
-  <img src="assets/icsee_desktop_viewer_preview.png" alt="Main Interface of ICSee Desktop Viewer with Side-by-Side Mode and Shortcuts Guide" width="95%">
+  <img src="assets/icsee_desktop_viewer_preview_censored.png" alt="Main Interface of ICSee Desktop Viewer with Side-by-Side Mode and Shortcuts Guide" width="95%">
 </p>
 
 ---
