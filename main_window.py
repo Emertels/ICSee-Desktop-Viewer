@@ -1082,6 +1082,257 @@ class ShutdownDialog(QDialog):
         self.accept()
 
 
+class ResetCacheDialog(QDialog):
+    """Custom dark compact modal dialog for cache & credentials wipe confirmation."""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(tr("msg_reset_title", "Limpar Dados e Cache"))
+        self.setFixedSize(450, 215)
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #1e293b;
+                border: 1px solid #475569;
+                border-radius: 8px;
+            }
+            QLabel {
+                color: #f8fafc;
+                background: transparent;
+            }
+            QPushButton {
+                border-radius: 6px;
+                padding: 7px 18px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        """)
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(18, 12, 18, 14)
+        layout.setSpacing(10)
+
+        # Header bar with title and close button
+        hdr = QHBoxLayout()
+        hdr.setContentsMargins(0, 0, 0, 0)
+        lbl_hdr = QLabel("🗑️ " + tr("msg_reset_title", "Limpar Dados e Cache"))
+        lbl_hdr.setStyleSheet("font-size: 13px; font-weight: bold; color: #38bdf8;")
+        btn_close = QPushButton("✕")
+        btn_close.setFixedSize(24, 24)
+        btn_close.setStyleSheet("""
+            QPushButton {
+                background: transparent;
+                color: #94a3b8;
+                border: none;
+                font-size: 13px;
+                font-weight: bold;
+                padding: 0px;
+            }
+            QPushButton:hover {
+                color: #ef4444;
+                background-color: rgba(239, 68, 68, 0.2);
+                border-radius: 4px;
+            }
+        """)
+        btn_close.clicked.connect(self.reject)
+        hdr.addWidget(lbl_hdr)
+        hdr.addStretch()
+        hdr.addWidget(btn_close)
+        layout.addLayout(hdr)
+
+        # Body with icon and description
+        top_box = QHBoxLayout()
+        top_box.setSpacing(14)
+
+        lbl_icon = QLabel("⚠️")
+        lbl_icon.setStyleSheet("font-size: 30px; background: transparent;")
+        top_box.addWidget(lbl_icon, alignment=Qt.AlignmentFlag.AlignTop)
+
+        text_box = QVBoxLayout()
+        text_box.setSpacing(5)
+        lbl_title = QLabel(tr("msg_reset_confirm_q", "Deseja realmente apagar todos os dados e cache locais?"))
+        lbl_title.setStyleSheet("font-size: 13px; font-weight: bold; color: #f8fafc;")
+        lbl_title.setWordWrap(True)
+        text_box.addWidget(lbl_title)
+
+        lbl_b1 = QLabel(tr("msg_reset_bullet_settings", "• As configurações de IP, usuário e senha serão apagadas deste PC."))
+        lbl_b1.setStyleSheet("font-size: 11px; color: #cbd5e1;")
+        lbl_b1.setWordWrap(True)
+        text_box.addWidget(lbl_b1)
+
+        lbl_b2 = QLabel(tr("msg_reset_bullet_restart", "• O aplicativo será restaurado ao estado limpo original de fábrica."))
+        lbl_b2.setStyleSheet("font-size: 11px; color: #cbd5e1;")
+        lbl_b2.setWordWrap(True)
+        text_box.addWidget(lbl_b2)
+
+        top_box.addLayout(text_box)
+        layout.addLayout(top_box)
+
+        layout.addStretch()
+
+        # Action Buttons
+        btn_box = QHBoxLayout()
+        btn_box.setSpacing(12)
+        btn_box.addStretch()
+
+        # No / Cancel button
+        btn_no = QPushButton(f"❌ {tr('btn_no', 'Não')}")
+        btn_no.setCursor(Qt.CursorShape.PointingHandCursor)
+        btn_no.setStyleSheet("""
+            QPushButton {
+                background-color: #334155;
+                color: #f8fafc;
+                border: 1px solid #475569;
+                min-width: 85px;
+            }
+            QPushButton:hover {
+                background-color: #475569;
+                border-color: #64748b;
+            }
+        """)
+        btn_no.clicked.connect(self.reject)
+        btn_box.addWidget(btn_no)
+
+        # Yes / Confirm button
+        btn_yes = QPushButton(f"🗑️ {tr('btn_yes', 'Sim')}")
+        btn_yes.setCursor(Qt.CursorShape.PointingHandCursor)
+        btn_yes.setStyleSheet("""
+            QPushButton {
+                background-color: #dc2626;
+                color: #ffffff;
+                border: 1px solid #ef4444;
+                min-width: 85px;
+            }
+            QPushButton:hover {
+                background-color: #b91c1c;
+                border-color: #f87171;
+            }
+        """)
+        btn_yes.clicked.connect(self.accept)
+        btn_box.addWidget(btn_yes)
+
+        layout.addLayout(btn_box)
+        self._drag_pos = None
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._drag_pos = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
+            event.accept()
+
+    def mouseMoveEvent(self, event):
+        if self._drag_pos and event.buttons() == Qt.MouseButton.LeftButton:
+            self.move(event.globalPosition().toPoint() - self._drag_pos)
+            event.accept()
+
+    def mouseReleaseEvent(self, event):
+        self._drag_pos = None
+        event.accept()
+
+
+class InfoDialog(QDialog):
+    """Custom dark compact modal dialog for informative messages."""
+    def __init__(self, title: str, message: str, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(title)
+        self.setFixedSize(410, 180)
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #1e293b;
+                border: 1px solid #475569;
+                border-radius: 8px;
+            }
+            QLabel {
+                color: #f8fafc;
+                background: transparent;
+            }
+            QPushButton {
+                border-radius: 6px;
+                padding: 7px 22px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        """)
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(18, 12, 18, 14)
+        layout.setSpacing(12)
+
+        hdr = QHBoxLayout()
+        lbl_hdr = QLabel("ℹ️ " + title)
+        lbl_hdr.setStyleSheet("font-size: 13px; font-weight: bold; color: #38bdf8;")
+        btn_close = QPushButton("✕")
+        btn_close.setFixedSize(24, 24)
+        btn_close.setStyleSheet("""
+            QPushButton {
+                background: transparent;
+                color: #94a3b8;
+                border: none;
+                font-size: 13px;
+                font-weight: bold;
+                padding: 0px;
+            }
+            QPushButton:hover {
+                color: #ef4444;
+                background-color: rgba(239, 68, 68, 0.2);
+                border-radius: 4px;
+            }
+        """)
+        btn_close.clicked.connect(self.accept)
+        hdr.addWidget(lbl_hdr)
+        hdr.addStretch()
+        hdr.addWidget(btn_close)
+        layout.addLayout(hdr)
+
+        top_box = QHBoxLayout()
+        top_box.setSpacing(14)
+        lbl_icon = QLabel("✅")
+        lbl_icon.setStyleSheet("font-size: 26px; background: transparent;")
+        top_box.addWidget(lbl_icon, alignment=Qt.AlignmentFlag.AlignTop)
+
+        lbl_msg = QLabel(message)
+        lbl_msg.setStyleSheet("font-size: 12px; color: #f8fafc;")
+        lbl_msg.setWordWrap(True)
+        top_box.addWidget(lbl_msg, 1)
+        layout.addLayout(top_box)
+
+        layout.addStretch()
+
+        btn_box = QHBoxLayout()
+        btn_box.addStretch()
+        btn_ok = QPushButton(tr("btn_ok", "OK"))
+        btn_ok.setCursor(Qt.CursorShape.PointingHandCursor)
+        btn_ok.setStyleSheet("""
+            QPushButton {
+                background-color: #0284c7;
+                color: #ffffff;
+                border: 1px solid #38bdf8;
+                min-width: 90px;
+            }
+            QPushButton:hover {
+                background-color: #0369a1;
+            }
+        """)
+        btn_ok.clicked.connect(self.accept)
+        btn_box.addWidget(btn_ok)
+        layout.addLayout(btn_box)
+
+        self._drag_pos = None
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._drag_pos = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
+            event.accept()
+
+    def mouseMoveEvent(self, event):
+        if self._drag_pos and event.buttons() == Qt.MouseButton.LeftButton:
+            self.move(event.globalPosition().toPoint() - self._drag_pos)
+            event.accept()
+
+    def mouseReleaseEvent(self, event):
+        self._drag_pos = None
+        event.accept()
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -2102,14 +2353,8 @@ class MainWindow(QMainWindow):
         self.panel_settings.setVisible(False)
 
     def prompt_reset_cache(self):
-        reply = QMessageBox.question(
-            self,
-            tr("msg_reset_title"),
-            tr("msg_reset_body"),
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-            QMessageBox.StandardButton.No
-        )
-        if reply == QMessageBox.StandardButton.Yes:
+        dlg = ResetCacheDialog(self)
+        if dlg.exec() == QDialog.DialogCode.Accepted:
             # 1. Reset configuration
             self.config = DEFAULT_CONFIG.copy()
             try:
@@ -2154,13 +2399,10 @@ class MainWindow(QMainWindow):
             self.combo_cams.addItem("Câmera Padrão", DEFAULT_CONFIG["ip"])
             self.combo_cams.blockSignals(False)
 
-            self.lbl_status.setText("🧹 Dados e cache apagados com sucesso.")
-            self.video_widget.show_toast("🧹 Cache e credenciais apagados!", duration_ms=4000)
-            QMessageBox.information(
-                self,
-                tr("msg_reset_title"),
-                tr("msg_reset_success")
-            )
+            msg_success = tr("msg_reset_success")
+            self.lbl_status.setText("🧹 " + msg_success.splitlines()[0])
+            self.video_widget.show_toast("🧹 " + msg_success.splitlines()[0], duration_ms=4500)
+            InfoDialog(tr("msg_reset_title"), msg_success, self).exec()
 
     def on_language_changed(self, index: int):
         code = self.combo_lang.itemData(index)
@@ -2982,6 +3224,25 @@ class MainWindow(QMainWindow):
             color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 13px;
+        }
+        QDialog, QMessageBox {
+            background-color: #1e293b;
+            color: #f8fafc;
+        }
+        QMessageBox QLabel {
+            color: #f8fafc;
+            background-color: transparent;
+        }
+        QMessageBox QPushButton {
+            background-color: #334155;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-weight: bold;
+        }
+        QMessageBox QPushButton:hover {
+            background-color: #475569;
         }
         /* Rich Flyout Tooltips */
         QToolTip {

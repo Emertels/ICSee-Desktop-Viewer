@@ -4,7 +4,7 @@
   <a href="README.md">🇧🇷 Português</a> | <b>🇺🇸 English</b>
 </p>
 
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue.svg)](https://github.com/Emertels/ICSee-Desktop-Viewer/releases)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue.svg)](https://github.com/Emertels/ICSee-Desktop-Viewer/releases)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![GUI Framework](https://img.shields.io/badge/GUI-PyQt6-green.svg)](https://riverbankcomputing.com/software/pyqt/)
 [![Streaming](https://img.shields.io/badge/Streaming-OpenCV%20%2F%20RTSP-orange.svg)](https://opencv.org/)
@@ -101,7 +101,7 @@ A modern, lightweight, high-performance, and fully portable desktop client for W
 ## 🚀 Installation and Execution
 
 ### Option 1: Standalone Portable Version (Recommended for End Users)
-1. Download the release package (`ICSee_Viewer_v1.0.0_Portable.zip`) from [Releases](https://github.com/Emertels/ICSee-Desktop-Viewer/releases).
+1. Download the release package (`ICSee_Viewer_v1.1.0_Portable.zip`) from [Releases](https://github.com/Emertels/ICSee-Desktop-Viewer/releases).
 2. Extract and launch `ICSee_Viewer.exe`.
 3. Ready! Does not require Python or any external dependencies installed.
 

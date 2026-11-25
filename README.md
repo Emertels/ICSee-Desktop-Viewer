@@ -4,7 +4,7 @@
   <b>🇧🇷 Português</b> | <a href="README.en.md">🇺🇸 English</a>
 </p>
 
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue.svg)](https://github.com/Emertels/ICSee-Desktop-Viewer/releases)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue.svg)](https://github.com/Emertels/ICSee-Desktop-Viewer/releases)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![GUI Framework](https://img.shields.io/badge/GUI-PyQt6-green.svg)](https://riverbankcomputing.com/software/pyqt/)
 [![Streaming](https://img.shields.io/badge/Streaming-OpenCV%20%2F%20RTSP-orange.svg)](https://opencv.org/)

@@ -46,7 +46,7 @@ The client is optimized for dual-sensor cameras (such as the `XM535_X6E-WEQ_8M`)
 - **Network:** PC and camera must be connected to the same local network (Ethernet or Wi-Fi).
 
 ### Portable Standalone Version (No Python required)
-1. Download the release archive `ICSee_Viewer_v1.0.0_Portable.zip`.
+1. Download the release archive `ICSee_Viewer_v1.1.0_Portable.zip`.
 2. Extract the folder to any drive or USB flash drive.
 3. Double-click `ICSee_Viewer.exe`.
 
